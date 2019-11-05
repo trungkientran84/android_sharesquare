@@ -9,6 +9,7 @@ Android app for share square platform
 | Task 02| Chi       |Week 8    |Done      |
 | Task 03| Tuong       |Week 8    |In Progress      |
 | Task 04| Sundeep       |Week 8    |N/A      |
+| Task 05| example       |Week 9    |N/A      |
 | task |name| week | status|
 
 
