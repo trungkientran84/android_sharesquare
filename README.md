@@ -15,6 +15,8 @@ Android app for share square platform
 
 
 
+
+
 ## II. The project to work with github .  
    We are working in the project where serveral members will coding and commit contemporarily. As the result, code conflict will happen and one member might overide the code of other member when he commit if we don't have a process of how we commit code to github. Fortunately, github gives us the feature to handle it. Please strickly compliance with following process when working in the project
    1. Go to github website of our repository. Create a new branch from the master branch and named with your task name.
