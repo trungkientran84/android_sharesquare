@@ -1,4 +1,4 @@
-package com.kientran.sharesquare.ui.tools;
+package com.kientran.sharesquare.ui.message;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.kientran.sharesquare.R;
 
-public class ToolsFragment extends Fragment {
+public class MessageFragment extends Fragment {
 
-    private ToolsViewModel toolsViewModel;
+    private MesaageViewModel mesaageViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        toolsViewModel =
-                ViewModelProviders.of(this).get(ToolsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_tools, container, false);
-        final TextView textView = root.findViewById(R.id.text_tools);
-        toolsViewModel.getText().observe(this, new Observer<String>() {
+        mesaageViewModel =
+                ViewModelProviders.of(this).get(MesaageViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_message, container, false);
+        final TextView textView = root.findViewById(R.id.text_message);
+        mesaageViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

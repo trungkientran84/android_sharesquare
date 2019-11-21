@@ -7,27 +7,67 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.kientran.sharesquare.ui.home.HomeFragment"
+        android:name="com.kientran.sharesquare.ui.post.PostFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_post">
+        <argument android:name="MENU" android:defaultValue="HOME" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.kientran.sharesquare.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_public_post"
+        android:name="com.kientran.sharesquare.ui.post.PostFragment"
+        android:label="@string/menu_public_post"
+        tools:layout="@layout/fragment_post">
+        <argument android:name="MENU" android:defaultValue="PUBLIC_POST" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.kientran.sharesquare.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_pending_post"
+        android:name="com.kientran.sharesquare.ui.post.PostFragment"
+        android:label="@string/menu_pending_post"
+        tools:layout="@layout/fragment_post">
+        <argument android:name="MENU" android:defaultValue="PENDING_POST" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.kientran.sharesquare.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        android:id="@+id/nav_closed_post"
+        android:name="com.kientran.sharesquare.ui.post.PostFragment"
+        android:label="@string/menu_closed_post"
+        tools:layout="@layout/fragment_post">
+        <argument android:name="MENU" android:defaultValue="CLOSED_POST" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_favorite"
+        android:name="com.kientran.sharesquare.ui.post.PostFragment"
+        android:label="@string/menu_favorite"
+        tools:layout="@layout/fragment_post">
+        <argument android:name="MENU" android:defaultValue="FAVORITE_POST" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="com.kientran.sharesquare.ui.dashboard.DashboardFragment"
+        android:label="@string/menu_dashboard">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_message"
+        android:name="com.kientran.sharesquare.ui.message.MessageFragment"
+        android:label="@string/menu_message">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.kientran.sharesquare.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_setting"
+        android:name="com.kientran.sharesquare.ui.setting.SettingFragment"
+        android:label="@string/menu_setting">
+    </fragment>
 
     <fragment
         android:id="@+id/nav_share"

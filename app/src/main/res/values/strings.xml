@@ -7,10 +7,20 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_favorite">Favorite</string>
+    <string name="menu_my_post">My Posts</string>
+    <string name="menu_public_post">Public</string>
+    <string name="menu_pending_post">Pending</string>
+    <string name="menu_closed_post">Closed</string>
+    <string name="menu_setting">Setting</string>
     <string name="menu_send">Send</string>
+
+
+    <string name="menu_home">Home</string>
+    <string name="menu_dashboard">Dashboard</string>
+    <string name="menu_message">Message</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_other">Other</string>
+    <string name="menu_communicate">Communicate</string>
 </resources>

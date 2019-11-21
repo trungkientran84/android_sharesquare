@@ -3,26 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_person_24dp"
+            android:title="@string/menu_profile" />
+
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
-        <item
-            android:id="@+id/nav_tools"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
+            android:id="@+id/nav_favorite"
+            android:icon="@drawable/ic_favorite_24dp"
+            android:title="@string/menu_favorite" />
+
+        <item android:title="@string/menu_my_post" >
+            <menu>
+                <item
+                    android:id="@+id/nav_public_post"
+                    android:icon="@drawable/ic_menu_public_post_24dp"
+                    android:title="@string/menu_public_post" />
+                <item
+                    android:id="@+id/nav_pending_post"
+                    android:icon="@drawable/ic_menu_pending_post_24dp"
+                    android:title="@string/menu_pending_post" />
+
+                <item
+                    android:id="@+id/nav_closed_post"
+                    android:icon="@drawable/ic_menu_close_post_24dp"
+                    android:title="@string/menu_closed_post" />
+            </menu>
+        </item>
+
     </group>
 
-    <item android:title="Communicate">
+
+    <item android:title="@string/menu_communicate">
         <menu>
             <item
                 android:id="@+id/nav_share"
@@ -32,6 +46,10 @@
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
                 android:title="@string/menu_send" />
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/ic_menu_settings_24dp"
+                android:title="@string/menu_setting" />
         </menu>
     </item>
 
