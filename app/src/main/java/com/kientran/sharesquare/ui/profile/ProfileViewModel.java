@@ -4,16 +4,26 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.kientran.sharesquare.model.UserProfile;
+
 public class ProfileViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+
+    public LiveData<UserProfile> getProfileViewModelMutableLiveData() {
+        return profileViewModelMutableLiveData;
+    }
+
+    public void setValue(UserProfile userProfile) {
+        profileViewModelMutableLiveData.setValue(userProfile);
+    }
+
+    private MutableLiveData<UserProfile> profileViewModelMutableLiveData;
+
 
     public ProfileViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is profile fragment");
+        profileViewModelMutableLiveData = new MutableLiveData<UserProfile>();
     }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
+
+
 }
