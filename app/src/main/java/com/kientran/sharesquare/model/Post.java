@@ -10,6 +10,10 @@ public class Post {
     public final String imageSmall;
     public final String createdAt;
 
+    private String subTitle;
+    private String category;
+
+
 
 
     public Post(String id, String title, String image,String createdAt) {
