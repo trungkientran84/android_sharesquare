@@ -15,6 +15,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.kientran.sharesquare.model.Message;
+import com.kientran.sharesquare.ui.message.MessageListFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -22,8 +24,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MessageListFragment.OnListFragmentInteractionListener {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -83,4 +86,14 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    @Override
+    public void onListFragmentInteraction(Message item) {
+        Toast.makeText(this, "Clicked: "+item.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onMessageDelete(Message item) {
+        Toast.makeText(this, "Message is deleted", Toast.LENGTH_SHORT).show();
+
+    }
 }

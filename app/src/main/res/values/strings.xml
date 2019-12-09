@@ -23,4 +23,7 @@
     <string name="menu_share">Share</string>
     <string name="menu_other">Other</string>
     <string name="menu_communicate">Communicate</string>
+    <string name="read">Read</string>
+    <string name="reply">Reply</string>
+    <string name="delete">Delete</string>
 </resources>

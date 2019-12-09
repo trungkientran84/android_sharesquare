@@ -6,4 +6,9 @@
     <color name="colorPrimaryLight">#ff5c8d</color>
     <color name="colorPrimaryDark">#a00037</color>
     <color name="colorAccent">#00574B</color>
+    <color name="active">#2176bd</color>
+    <color name="warning">#ffed4a</color>
+    <color name="MsgHeader">#FFC7B0</color>
+    <color name="MsgHeader_Readed">#fff</color>
+    <color name="MgsFooter_Gray">#f0f3f5</color>
 </resources>

@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.kientran.sharesquare.R;
-import com.kientran.sharesquare.ui.message.MesaageViewModel;
+import com.kientran.sharesquare.ui.message.MessageViewModel;
 import com.kientran.sharesquare.ui.post.OnPostListFragmentInteractionListener;
 
 /**
@@ -24,15 +24,15 @@ import com.kientran.sharesquare.ui.post.OnPostListFragmentInteractionListener;
  */
 public class DashboardFragment extends Fragment{
 
-    private MesaageViewModel mesaageViewModel;
+    private MessageViewModel messageViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        mesaageViewModel =
-                ViewModelProviders.of(this).get(MesaageViewModel.class);
+        messageViewModel =
+                ViewModelProviders.of(this).get(MessageViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         final TextView textView = root.findViewById(R.id.text_dashboard);
-        mesaageViewModel.getText().observe(this, new Observer<String>() {
+        messageViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

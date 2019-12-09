@@ -16,15 +16,15 @@ import com.kientran.sharesquare.R;
 
 public class MessageFragment extends Fragment {
 
-    private MesaageViewModel mesaageViewModel;
+    private MessageViewModel messageViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        mesaageViewModel =
-                ViewModelProviders.of(this).get(MesaageViewModel.class);
+        messageViewModel =
+                ViewModelProviders.of(this).get(MessageViewModel.class);
         View root = inflater.inflate(R.layout.fragment_message, container, false);
         final TextView textView = root.findViewById(R.id.text_message);
-        mesaageViewModel.getText().observe(this, new Observer<String>() {
+        messageViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
