@@ -42,9 +42,20 @@
             android:id="@+id/btn_Send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send"
-
+            android:text="@string/send"
+android:background="@color/active"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></Button>
+
+        <Button
+            android:id="@+id/btn_Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:background="@color/active"
+
+            app:layout_constraintLeft_toRightOf="@+id/btn_Send"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"></Button>
     </androidx.constraintlayout.widget.ConstraintLayout>

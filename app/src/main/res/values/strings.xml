@@ -26,4 +26,6 @@
     <string name="read">Read</string>
     <string name="reply">Reply</string>
     <string name="delete">Delete</string>
+    <string name="email">Email</string>
+    <string name="send">Send</string>
 </resources>

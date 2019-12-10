@@ -1,6 +1,7 @@
 package com.kientran.sharesquare.ui.message;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -44,8 +45,10 @@ public class MessageReply extends Fragment {
     // TODO: Rename and change types of parameters
     private String content;
     private String authorname;
+    private String authoremail;
     private int authorid;
     private Button btn_Send;
+    private Button btn_Email;
     private EditText et_msg;
     private TextView tv_To;
     private final IMessageRepository repo;
@@ -70,6 +73,7 @@ public class MessageReply extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_content, msg.getContent());
         args.putString(ARG_authorname, msg.getAuthorname());
+        args.putString(ARG_authoremail, msg.getAuthoremail());
         args.putInt(ARG_authorid, msg.getAuthorid());
         fragment.setArguments(args);
         return fragment;
@@ -81,6 +85,7 @@ public class MessageReply extends Fragment {
         if (getArguments() != null) {
             content = getArguments().getString(ARG_content);
             authorname = getArguments().getString(ARG_authorname);
+            authoremail = getArguments().getString(ARG_authoremail);
             authorid = getArguments().getInt(ARG_authorid);
         }
     }
@@ -112,8 +117,30 @@ public class MessageReply extends Fragment {
                 transaction.commit();
             }
         });
+
+        btn_Email = view.findViewById(R.id.btn_Email);
+        btn_Email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String msg = et_msg.getText().toString().trim();
+
+                String[] addresses ={authoremail};
+                String subject = "Message from Android";
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+//                intent.setType("*/*");
+                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+                intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                intent.putExtra(Intent.EXTRA_TEXT, msg);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+
+            }
+        });
         et_msg = view.findViewById(R.id.et_msg);
-        et_msg.setText("\n=====From: "+authorname+" ======\n"+content);
+        et_msg.setText("\n=====From: " + authorname + " ======\n" + content);
 
         tv_To = view.findViewById(R.id.tv_To);
         tv_To.setText("To: " + authorname);
