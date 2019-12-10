@@ -1,6 +1,7 @@
 package com.kientran.sharesquare.ui.message;
 
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kientran.sharesquare.app.AppController;
 import com.kientran.sharesquare.model.Message;
+import com.kientran.sharesquare.model.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,20 +27,22 @@ import java.util.TimeZone;
 
 public class MessageRepository implements IMessageRepository {
     private int visibleThreshold = 10;
-    private int lastVisibleItem, totalItemCount;
     private boolean loading;
     private String loadingDataUrl;
     private final DateFormat df;
     private final String host;
     private LiveData<Message> messages;
     private RecyclerView.Adapter adapter;
+    private ArrayAdapter adapterUser;
 
     private final List<Message> ITEMS = new ArrayList<Message>();
+    private final List<User> _users = new ArrayList<>();
+    private final List<String> _usersView = new ArrayList<>();
 
     public MessageRepository(String host) {
         df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
-        loadingDataUrl = host + "/api/messagesload/53";
+        loadingDataUrl = host + "/api/messagesload/" + AppController.USER_ID;
         this.host = host;
     }
 
@@ -59,7 +63,6 @@ public class MessageRepository implements IMessageRepository {
                     try {
 
                         JSONArray data = response.getJSONArray("data");
-                        Log.v("Message", "JSONArray");
                         try {
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject jsonObject = data.getJSONObject(i);
@@ -77,10 +80,8 @@ public class MessageRepository implements IMessageRepository {
                             Log.e("Message", e.getMessage());
 
                         }
-                        Log.v("Message", "for");
 
                         loadingDataUrl = response.getJSONObject("links").getString("next");
-                        Log.v("Message", loadingDataUrl);
                         if (adapter != null) {
                             adapter.notifyDataSetChanged();
                         }
@@ -169,10 +170,7 @@ public class MessageRepository implements IMessageRepository {
                     String data = response.getString("data");
 
                     if (data.equals("success")) {
-//                        ITEMS.remove(position);
-//                        if (adapter != null) {
-//                            adapter.notifyDataSetChanged();
-//                        }
+
                     } else {
                         Log.e("Message", "Error in SetRead");
 
@@ -196,4 +194,158 @@ public class MessageRepository implements IMessageRepository {
 
                 add(jsonArrayRequest);
     }
+
+    @Override
+    public void searchUser(String username) {
+        _users.clear();
+        _usersView.clear();
+        JSONObject postparams = new JSONObject();
+        try {
+            postparams.put("name", username);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("Message", e.getMessage());
+        }
+        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.POST
+                , host + "/api/messagesuser"
+                , postparams
+                , new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+
+                    JSONArray data = response.getJSONArray("data");
+
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject jsonObject = data.getJSONObject(i);
+                        User item = new User(jsonObject.getString("id")
+                                , jsonObject.getString("name")
+                                , jsonObject.getString("email")
+                        );
+
+                        _users.add(item);
+                        _usersView.add(item.getName() + "-" + item.getEmail());
+                    }
+
+                    Log.v("Message", "for");
+
+                    if (adapterUser != null) {
+                        adapterUser.notifyDataSetChanged();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("Message", e.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Message", error.getMessage());
+            }
+        });
+
+        AppController.getInstance().getRequestQueue().add(jsonArrayRequest);
+
+    }
+
+    @Override
+    public List<String> getUsers() {
+        return _usersView;
+    }
+
+    @Override
+    public void SetAdapter(ArrayAdapter adapter) {
+        this.adapterUser = adapter;
+    }
+
+    @Override
+    public void SendMessage(int position, String content) {
+        JSONObject postparams = new JSONObject();
+        try {
+            postparams.put("created_user_id", AppController.USER_ID);
+            postparams.put("content", content);
+            postparams.put("recipient_id", _users.get(position).getId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("Message", e.getMessage());
+        }
+        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.POST
+                , host + "/api/messages"
+                , postparams
+                , new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+
+                    String data = response.getString("data");
+
+                    if (data.equals("success")) {
+
+                    } else {
+                        Log.e("Message", "Error in SendMessage");
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("Message", e.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Message", error.getMessage());
+            }
+        });
+
+        AppController.getInstance().getRequestQueue().add(jsonArrayRequest);
+
+    }
+
+    @Override
+    public void ReplyMessage(int authorId, String content) {
+        JSONObject postparams = new JSONObject();
+        try {
+            postparams.put("created_user_id", AppController.USER_ID);
+            postparams.put("content", content);
+            postparams.put("recipient_id", authorId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("Message", e.getMessage());
+        }
+        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.POST
+                , host + "/api/messages"
+                , postparams
+                , new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+
+                    String data = response.getString("data");
+
+                    if (data.equals("success")) {
+
+                    } else {
+                        Log.e("Message", "Error in ReplyMessage");
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("Message", e.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Message", error.getMessage());
+            }
+        });
+
+        AppController.getInstance().getRequestQueue().add(jsonArrayRequest);
+
+    }
+
+
 }

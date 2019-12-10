@@ -13,31 +13,31 @@ public class AppController extends Application {
 
     public static final String TAG = AppController.class.getSimpleName();
     public static final String HOST = "http://10.0.2.2:8000";
-
+    public static final int USER_ID = 53;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
     private static AppController instance;
 
     @Override
-    public void onCreate(){
+    public void onCreate() {
         super.onCreate();
         instance = this;
     }
 
-    public static synchronized AppController getInstance(){
+    public static synchronized AppController getInstance() {
         return instance;
     }
 
-    public RequestQueue getRequestQueue(){
-        if(mRequestQueue == null){
+    public RequestQueue getRequestQueue() {
+        if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         }
         return mRequestQueue;
     }
 
-    public ImageLoader getmImageLoader(){
-        if(mImageLoader == null){
+    public ImageLoader getmImageLoader() {
+        if (mImageLoader == null) {
             mImageLoader = new ImageLoader(this.mRequestQueue, new LruBitmapCache());
         }
 

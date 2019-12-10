@@ -4,33 +4,20 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.kientran.sharesquare.R;
 import com.kientran.sharesquare.app.AppController;
 import com.kientran.sharesquare.model.Message;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TimeZone;
 
 /**
  * A fragment representing a list of Items.
@@ -92,7 +79,9 @@ public class MessageListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            adapter = new MyMessageListRecyclerViewAdapter(repo.getITEMS(), mListener, repo);
+            FragmentManager manager=getFragmentManager();
+
+            adapter = new MyMessageListRecyclerViewAdapter( mListener, repo,manager);
             recyclerView.setAdapter(adapter);
             recyclerView
                     .addOnScrollListener(new RecyclerView.OnScrollListener() {

@@ -1,6 +1,8 @@
 package com.kientran.sharesquare.ui.message;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
@@ -30,15 +32,17 @@ public class MyMessageListRecyclerViewAdapter extends RecyclerView.Adapter<MyMes
     private final OnListFragmentInteractionListener mListener;
     private final DateFormat df;
     private final IMessageRepository repo;
+    private final FragmentManager manager;
 
-    public MyMessageListRecyclerViewAdapter(List<Message> items
-            , OnListFragmentInteractionListener listener
+    public MyMessageListRecyclerViewAdapter(OnListFragmentInteractionListener listener
             , IMessageRepository repo
+            , FragmentManager manager
     ) {
         mValues = repo.getITEMS();// items;
         mListener = listener;
         df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         this.repo = repo;
+        this.manager = manager;
         repo.SetAdapter(this);
 
     }
@@ -69,7 +73,22 @@ public class MyMessageListRecyclerViewAdapter extends RecyclerView.Adapter<MyMes
                 }
             }
         });
-
+        holder.mBtnReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mListener) {
+                    // Notify the active callbacks interface (the activity, if the
+                    // fragment is attached to one) that an item has been selected.
+//                    repo.SetRead(position);
+//                    UpdateReaded(holder);
+                    MessageReply fmsg = MessageReply.newInstance(holder.mItem);
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.nav_host_fragment, fmsg);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
         holder.mBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,19 +112,19 @@ public class MyMessageListRecyclerViewAdapter extends RecyclerView.Adapter<MyMes
             }
         });
     }
-private void UpdateReaded(ViewHolder holder){
-    if(holder.mItem.getStatus().equals("readed"))
-    {
-        holder.mHeader.setBackgroundResource(R.color.MsgHeader_Readed);
-        holder.mBtnRead.setBackgroundResource(R.color.MgsFooter_Gray);
-        holder.mBtnRead.setEnabled(false);
+
+    private void UpdateReaded(ViewHolder holder) {
+        if (holder.mItem.getStatus().equals("readed")) {
+            holder.mHeader.setBackgroundResource(R.color.MsgHeader_Readed);
+            holder.mBtnRead.setBackgroundResource(R.color.MgsFooter_Gray);
+            holder.mBtnRead.setEnabled(false);
+        } else {
+            holder.mHeader.setBackgroundResource(R.color.MsgHeader);
+            holder.mBtnRead.setBackgroundResource(R.color.active);
+            holder.mBtnRead.setEnabled(true);
+        }
     }
-    else{
-        holder.mHeader.setBackgroundResource(R.color.MsgHeader);
-        holder.mBtnRead.setBackgroundResource(R.color.active);
-        holder.mBtnRead.setEnabled(true);
-    }
-}
+
     @Override
     public int getItemCount() {
         return mValues.size();
